@@ -6,7 +6,7 @@ Homework#20(Retrofit Client + Post Methods)
 ## Description
 
 
-Preview:
+Preview :
 
 Retrofit Application with POST methods for Login and Register
 
@@ -14,7 +14,8 @@ APIs used in the project :
   * https://reqres.in/api/login
   * https://reqres.in/api/register
   
-  
+ Design : 
+  * https://www.figma.com/file/SFQGM0XKngaVBIUTMQjQbf/Login-%26-Register-(Community)?node-id=18%3A14
   
 ### Design
 
