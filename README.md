@@ -5,9 +5,6 @@ Homework#20(Retrofit Client + Post Methods)
 
 ## Description
 
-
-Preview :
-
 Retrofit Application with POST methods for Login and Register
 
 APIs used in the project :
