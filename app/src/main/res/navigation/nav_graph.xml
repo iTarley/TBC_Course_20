@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_welcome" >
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/open_anim"
+            app:popEnterAnim="@anim/back_anim" />
         <action
             android:id="@+id/action_welcomeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/open_anim"
+            app:popEnterAnim="@anim/back_anim" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -26,9 +30,5 @@
         android:id="@+id/registerFragment"
         android:name="com.example.tbc_course_20.ui.main.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_register" />
 </navigation>

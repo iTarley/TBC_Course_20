@@ -25,12 +25,11 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater,container,false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,18 +38,25 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
+
+
         binding.finalRegisterBtn.setOnClickListener {
-            viewModel.register(
-                binding.emailEditText.text.toString(),
-                binding.passwordEditText.text.toString(),
-            )
+            if (binding.emailEditText.text!!.isNotEmpty() || binding.passwordEditText.text!!.isNotEmpty()) {
+                viewModel.register(
+                    binding.emailEditText.text.toString(),
+                    binding.passwordEditText.text.toString()
+                )
+            } else {
+                Snackbar.make(view, getString(R.string.fill_inputs), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.registerState.collect{
-                    when (it){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerState.collect {
+                    when (it) {
                         is Resource.Error -> {
                             Snackbar.make(view, it.errorData, Snackbar.LENGTH_SHORT).show()
                         }
@@ -58,8 +64,11 @@ class RegisterFragment : Fragment() {
                             Log.d("loading", "${it.loader}")
                         }
                         is Resource.Success -> {
-                            Snackbar.make(view,
-                                getString(R.string.success_register) + binding.emailEditText.text.toString(), Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                view,
+                                getString(R.string.success_register) + binding.emailEditText.text.toString(),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -67,12 +76,7 @@ class RegisterFragment : Fragment() {
         }
 
 
-
-
-
-
     }
-
 
 
     override fun onDestroyView() {

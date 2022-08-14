@@ -11,4 +11,5 @@
     <string name="email">Email</string>
     <string name="welcome_login">Welcome\ </string>
     <string name="success_register">Successfully registered\ </string>
+    <string name="fill_inputs">Please fill all values</string>
 </resources>

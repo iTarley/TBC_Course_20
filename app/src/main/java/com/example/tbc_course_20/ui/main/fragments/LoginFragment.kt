@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,13 +42,24 @@ class LoginFragment : Fragment() {
 
 
         binding.loginBtnConfirm.setOnClickListener {
-            viewModel.logIn(binding.emailEditText.text.toString(),binding.passwordEditText.text.toString())
-        }
-        viewLifecycleOwner.lifecycleScope.launch{
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+            if (binding.emailEditText.text!!.isNotEmpty() || binding.passwordEditText.text!!.isNotEmpty()) {
+                viewModel.logIn(
+                    binding.emailEditText.text.toString(),
+                    binding.passwordEditText.text.toString()
+                )
+            } else {
+                Snackbar.make(view, getString(R.string.fill_inputs), Snackbar.LENGTH_SHORT).show()
+            }
 
-                viewModel.loginState.collect{
-                    when(it){
+
+        }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModel.loginState.collect {
+                    when (it) {
                         is Resource.Error -> {
                             Snackbar.make(view, it.errorData, Snackbar.LENGTH_SHORT).show()
                         }
@@ -56,8 +67,11 @@ class LoginFragment : Fragment() {
                             Log.d("loading", "${it.loader}")
                         }
                         is Resource.Success -> {
-                            Snackbar.make(view,
-                                getString(R.string.welcome_login) + binding.emailEditText.text.toString(), Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                view,
+                                getString(R.string.welcome_login) + binding.emailEditText.text.toString(),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
